@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  whatsapp-service:
+    image: whatsapp-service:latest
+    container_name: whatsapp-service
+    ports:
+      - "3000:3000"  # Update this if your app runs on a different port
+    environment:
+      - NODE_ENV=production
+      - CHROME_PATH=/usr/bin/google-chrome 
+    restart: on-failure

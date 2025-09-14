@@ -1,0 +1,2 @@
+C:\Users\reshm\Downloads\AllWhatsApp\AllWhatsApp\whatsapp-service\obj\Debug\whatsapp-service.esproj.CoreCompileInputs.cache
+C:\AtulDevelopment\AbhiyanAI\Git\AbhiyaanAI\backend\AbhiyanAI\AbhiyanAI.WhatsAppService\obj\Debug\whatsapp-service.esproj.CoreCompileInputs.cache

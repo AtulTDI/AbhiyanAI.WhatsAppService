@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">whatsapp-service</PackageJsonName>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">1.0.0</PackageJsonVersion>
+    <PackageJsonDescription Condition="$(PackageJsonDescription) == ''"></PackageJsonDescription>
+    <PackageJsonMain Condition="$(PackageJsonMain) == ''">app.js</PackageJsonMain>
+    <PackageJsonScriptsTest Condition="$(PackageJsonScriptsTest) == ''">echo "Error: no test specified" &amp;&amp; exit 1</PackageJsonScriptsTest>
+    <PackageJsonKeywords Condition="$(PackageJsonKeywords) == ''">[]</PackageJsonKeywords>
+    <PackageJsonAuthor Condition="$(PackageJsonAuthor) == ''"></PackageJsonAuthor>
+    <PackageJsonLicense Condition="$(PackageJsonLicense) == ''">ISC</PackageJsonLicense>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^9.35.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">^1.12.0</PackageJsonDependenciesAxios>
+    <PackageJsonDependenciesBodyParser Condition="$(PackageJsonDependenciesBodyParser) == ''">^2.2.0</PackageJsonDependenciesBodyParser>
+    <PackageJsonDependenciesChromeLauncher Condition="$(PackageJsonDependenciesChromeLauncher) == ''">^1.2.0</PackageJsonDependenciesChromeLauncher>
+    <PackageJsonDependenciesCors Condition="$(PackageJsonDependenciesCors) == ''">^2.8.5</PackageJsonDependenciesCors>
+    <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^5.1.0</PackageJsonDependenciesExpress>
+    <PackageJsonDependenciesFluentFfmpeg Condition="$(PackageJsonDependenciesFluentFfmpeg) == ''">^2.1.3</PackageJsonDependenciesFluentFfmpeg>
+    <PackageJsonDependenciesPuppeteer Condition="$(PackageJsonDependenciesPuppeteer) == ''">^24.19.0</PackageJsonDependenciesPuppeteer>
+    <PackageJsonDependenciesQrcode Condition="$(PackageJsonDependenciesQrcode) == ''">^1.5.4</PackageJsonDependenciesQrcode>
+    <PackageJsonDependenciesQrcodeTerminal Condition="$(PackageJsonDependenciesQrcodeTerminal) == ''">^0.12.0</PackageJsonDependenciesQrcodeTerminal>
+    <PackageJsonDependenciesWhatsappWebJs Condition="$(PackageJsonDependenciesWhatsappWebJs) == ''">^1.33.2</PackageJsonDependenciesWhatsappWebJs>
+  </PropertyGroup>
+</Project>
