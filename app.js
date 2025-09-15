@@ -16,8 +16,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/video', videoRoutes);
 
 // Start server
-app.listen(PORT, async () => {
-    console.log(`WhatsApp service running at http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', async () => {
+    console.log('🟡 Loaded PORT:', PORT);
+    console.log(`✅ WhatsApp service running at http://0.0.0.0:${PORT}`);
 
     try {
         // Initialize default session
