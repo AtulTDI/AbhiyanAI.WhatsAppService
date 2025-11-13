@@ -101,9 +101,15 @@ async function init(userId) {
         console.error(`[${userId}] Auth failure:`, msg);
     });
 
-    client.on('disconnected', (reason) => {
+    client.on('disconnected', async (reason) => {
         clients[userId].isReady = false;
         console.warn(`[${userId}] Client disconnected: ${reason}`);
+
+        // ✅ If the device was unlinked from the phone, cleanup session
+        if (reason === 'LOGOUT') {
+            console.log(`[${userId}] Device unlinked from mobile. Logging out session...`);
+            await logout(userId);
+        }
     });
 
     await client.initialize();
