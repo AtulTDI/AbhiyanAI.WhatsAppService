@@ -124,34 +124,36 @@ async function sendVideo({ userId, number, videoUrl, caption }) {
             throw new Error(`❌ The number ${number} is not registered on WhatsApp.`);
         }
 
-        // Check if chat exists
-        let chatExists = false;
-
-
-        // If chat does not exist → create it
-        if (!chatExists) {
-            console.log(`[${userId}] 📩 Creating initial chat with ${number}...`);
-
-            await client.sendMessage(numberId._serialized, "\u200B");
-            await delay(3000); // MUST WAIT
-        }
+        // ----------------------------------------------------------------
+        // ⭐⭐⭐ NEW WARM-UP FIX (NO MESSAGE SENT TO RECEIVER) ⭐⭐⭐
+        // ----------------------------------------------------------------
         try {
-            await trySend(client, numberId, sendPath, caption);
-            console.log(`[${userId}] ✅ Video sent to ${number}`);
-        } catch (err) {
-            console.error(`[${userId}] ❌ Media send failed even after chat init:`, err);
-            throw err;
+            const selfId = client.info.wid._serialized;
+            console.log(`[${userId}] 🔧 Warming up WhatsApp internal chat system...`);
+
+            const warmupMsg = await client.sendMessage(selfId, "\u200B");
+
+            await delay(1000);
+
+            try {
+                await warmupMsg.delete(true);
+            } catch { }
+        } catch (warmErr) {
+            console.log(`[${userId}] ⚠ Warm-up skipped: ${warmErr.message}`);
         }
+        // ----------------------------------------------------------------
 
+        // Send the video
+        console.log(`[${userId}] 🎬 Sending video to ${number}...`);
 
-        //const media = MessageMedia.fromFilePath(sendPath);
-        //await client.sendMessage(`${number}@c.us`, media, { caption });
+        await trySend(client, numberId, sendPath, caption);
 
-        //console.log(`[${userId}] ✅ Video sent to ${number}`);
+        console.log(`[${userId}] ✅ Video sent successfully to ${number}`);
 
     } catch (err) {
         console.error(`[${userId}] ❌ Error sending video:`, err);
         throw err;
+
     } finally {
         // Cleanup temp folder
         try {
