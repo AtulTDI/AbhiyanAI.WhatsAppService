@@ -1,37 +1,4 @@
-﻿/* const express = require('express');
-const router = express.Router();
-const whatsappClient = require('../services/whatsappClient'); // must import
-const { sendVideo } = require('../services/videoService');
-
-// Send video endpoint (user-specific)
-router.post('/send/:userId', async (req, res) => {
-    const { userId } = req.params;
-    const { number, videoUrl, localPath, caption } = req.body;
-
-    if (!userId) return res.status(400).send('userId is required');
-    if (!number) return res.status(400).send('number and videoUrl are required');//|| !videoUrl
-
-    if (!videoUrl && !localPath) {
-        return res.status(400).send('Either videoUrl or localPath is required');
-    }
-
-    try {
-        // Ensure client initialized for user
-        await whatsappClient.init(userId);
-
-        // Send video
-        await sendVideo({ userId, number, videoUrl, localPath, caption });
-
-        res.send(`Video sent successfully. ${number}`);
-    } catch (err) {
-        console.error(`[${userId}] Error sending video:`, err);
-        res.status(500).send(err.message);
-    }
-});
-
-module.exports = router; */
-
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const { sendVideo } = require('../services/videoService');
 const whatsappClient = require('../services/whatsappClient');
@@ -78,5 +45,3 @@ router.post('/send/:userId', async (req, res) => {
 });
 
 module.exports = router;
-
-

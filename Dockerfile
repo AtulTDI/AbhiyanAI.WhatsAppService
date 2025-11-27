@@ -15,10 +15,10 @@ COPY package*.json ./
 RUN npm install --production
 
 # Install system dependencies for Puppeteer and FFmpeg
+# chromium \
+# chromium-driver \
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    chromium \
-    chromium-driver \
     ca-certificates \
     fonts-freefont-ttf \
     libnss3 \
@@ -46,7 +46,8 @@ COPY . .
 EXPOSE 3000
 
 # Set Chromium executable path for Puppeteer
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+#ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV PUPPETEER_SKIP_DOWNLOAD=false
 
 # Start the app
 CMD ["node", "app.js"]

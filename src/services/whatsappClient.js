@@ -62,7 +62,8 @@ async function init(userId) {
         puppeteer: {
             headless: true,
             executablePath,
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions', '--disable-gpu']
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions', '--disable-gpu', '--disable-dev-shm-usage', '--ignore-certificate-errors',
+                '--ignore-certificate-errors-spki-list']
         }
     });
 
