@@ -3,6 +3,38 @@ const axios = require("axios");
 const mime = require("mime-types");
 const { MessageMedia } = require("whatsapp-web.js");
 
+
+// ---------------------------------------------------------
+// User-specific fixed delay tracking (20 seconds)
+// ---------------------------------------------------------
+const lastSendTimeByUser = new Map(); // userId -> timestamp (ms)
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function enforceUserDelay(userId, delaySeconds = 20) {
+    const now = Date.now();
+    const lastTime = lastSendTimeByUser.get(userId) || 0;
+
+    const requiredDelayMs = delaySeconds * 1000;
+    const elapsed = now - lastTime;
+
+    if (elapsed < requiredDelayMs) {
+        const waitMs = requiredDelayMs - elapsed;
+        console.log(
+            `[DELAY user=${userId}] ⏳ Waiting ${Math.ceil(waitMs / 1000)} seconds`
+        );
+        
+        await delay(waitMs);
+    }
+
+    // Update timestamp just before sending
+    lastSendTimeByUser.set(userId, Date.now());
+}
+
+
+
 /* ---------------------------------------------------------
  * Helper: Download file and return { buffer, mime, fileName }
  * --------------------------------------------------------- */
@@ -59,12 +91,16 @@ async function sendVideo({ client, userId, number, videoUrl, caption }) {
 
         const media = buildMedia(buffer, mimeType, fileName);
 
+        await enforceUserDelay(userId);
+
         console.log(`${logPrefix} 🎬 Sending VIDEO...`);
         await client.sendMessage(chatId, media, { caption: caption || "" });
 
         console.log(`${logPrefix} ✅ Video sent successfully`);
         return { success: true };
     } catch (err) {
+        console.log(`[DELAY user=${userId}] ⏳ Waiting 20 seconds after failure`);
+        await delay(20_000);
         console.error(`${logPrefix} ❌ FINAL ERROR: ${err.message}`);
         return { success: false, error: err.message };
     }
@@ -86,12 +122,16 @@ async function sendImage({ client, userId, number, imageUrl, caption }) {
 
         const media = buildMedia(buffer, mimeType, fileName);
 
+        await enforceUserDelay(userId);
+
         console.log(`${logPrefix} 🖼 Sending IMAGE...`);
         await client.sendMessage(chatId, media, { caption: caption || "" });
 
         console.log(`${logPrefix} ✅ Image sent successfully`);
         return { success: true };
     } catch (err) {
+        console.log(`[DELAY user=${userId}] ⏳ Waiting 20 seconds after failure`);
+        await delay(20_000);
         console.error(`${logPrefix} ❌ FINAL ERROR: ${err.message}`);
         return { success: false, error: err.message };
     }
